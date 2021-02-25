@@ -17,3 +17,7 @@ export PYSPARK_PYTHON=$PYTHON_FOR_SPARK/python
 export PYSPARK_DRIVER_PYTHON=$PYTHON_FOR_SPARK/ipython
 
 ```
+
+## Jupyter Notebook
+In the following link is shown two methods of how to use pyspark with jupyter notebook.
+[https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes](https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes)
