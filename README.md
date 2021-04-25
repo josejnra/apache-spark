@@ -21,3 +21,10 @@ export PYSPARK_DRIVER_PYTHON=$PYTHON_FOR_SPARK/ipython
 ## Jupyter Notebook
 In the following link is shown two methods of how to use pyspark with jupyter notebook.
 [https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes](https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes)
+
+
+## Spark Submit Using Docker Images
+We may use docker images from [Data Mechanics](https://hub.docker.com/r/datamechanics/spark) in order
+to run spark apps without the need of installing and configuring it.
+On this [folder](spark-on-docker) all you need to do is to map the source code volume into `/opt/application` and 
+change the `command` on the docker-compose file. Then, just `docker-compose up`.
