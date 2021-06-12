@@ -28,3 +28,7 @@ Finally, just run the example [script](run.sh). Logs may be found by running:
 ```bash
 kubectl logs spark-driver
 ```
+
+## Referencies
+- https://spark.apache.org/docs/latest/running-on-kubernetes.html
+- https://gist.github.com/jjstill/8099669931cdfbb90ce6f4c307971514
