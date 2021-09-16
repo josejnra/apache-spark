@@ -1,3 +1,6 @@
+## Run Spark
+At [spark-on-docker](spark-on-docker) you may run spark locally in several different ways. Using docker-compose or even on kubernetes.
+
 ## Linux Configuration
 Set up the environment by defining the environment variables in your `~/.bashrc`.
 ```shell
