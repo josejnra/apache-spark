@@ -58,9 +58,7 @@ ENV PATH $PATH:/opt/spark-${SPARK_VERSION}-bin-without-hadoop/bin
 ENV SPARK_HOME /opt/spark-${SPARK_VERSION}-bin-without-hadoop
 ENV PYSPARK_PYTHON python3
 
-RUN mv $SPARK_HOME/conf/spark-defaults.conf.template $SPARK_HOME/conf/spark-defaults.conf && \
-    echo "spark.master yarn" >> $SPARK_HOME/conf/spark-defaults.conf && \
-    echo "export JAVA_HOME=$JAVA_HOME" >> /opt/spark-${SPARK_VERSION}-bin-without-hadoop/sbin/spark-config.sh && \
+RUN echo "export JAVA_HOME=$JAVA_HOME" >> /opt/spark-${SPARK_VERSION}-bin-without-hadoop/sbin/spark-config.sh && \
     echo "export SPARK_DIST_CLASSPATH=$(hadoop classpath)" >> /opt/spark-${SPARK_VERSION}-bin-without-hadoop/sbin/spark-config.sh
 
 EXPOSE 7077 4040

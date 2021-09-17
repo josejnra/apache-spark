@@ -12,10 +12,9 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8080:8080 # Spark UI
-      - 7077:7077
-      - 4040:4040
+      - 8080:18080 # Spark History Server
       - 8088:8088 # Resource Manager UI
+      - 8042:8042
       - 9864:9864 # Datanode port
       - 9870:9870 # HDFS UI
     volumes: 
@@ -24,13 +23,12 @@ services:
       - ./conf/hdfs-site.xml:/home/hadoop/hadoop-3.3.1/etc/hadoop/hdfs-site.xml
       - ./conf/mapred-site.xml:/home/hadoop/hadoop-3.3.1/etc/hadoop/mapred-site.xml
       - ./conf/yarn-site.xml:/home/hadoop/hadoop-3.3.1/etc/hadoop/yarn-site.xml
+      - ./spark-defaults.conf:/opt/spark-3.1.2-bin-without-hadoop/conf/spark-defaults.conf
     command:
       - "-c"
       - |
         echo "Starting ssh service..."
         service ssh start
-
-        # ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 
         echo "Formating the filesystem..."
         hdfs namenode -format
@@ -41,13 +39,14 @@ services:
         yarn --daemon start resourcemanager
         yarn --daemon start nodemanager
         yarn --daemon start proxyserver
-        mapred --daemon start historyserver
 
         echo "Creating the HDFS directories required to execute MapReduce jobs..."
         hdfs dfs -mkdir /user
         hdfs dfs -mkdir /user/$$(whoami)
+        hdfs dfs -mkdir /spark-logs
 
         echo "Starting spark"
+        export SPARK_DIST_CLASSPATH=$$(hadoop classpath)
         /opt/spark-3.1.2-bin-without-hadoop/sbin/start-all.sh
         /opt/spark-3.1.2-bin-without-hadoop/sbin/start-history-server.sh
 
