@@ -45,7 +45,7 @@ services:
         hdfs dfs -mkdir /user/$$(whoami)
         hdfs dfs -mkdir /spark-logs
 
-        echo "Starting spark"
+        echo "Starting spark..."
         export SPARK_DIST_CLASSPATH=$$(hadoop classpath)
         /opt/spark-3.1.2-bin-without-hadoop/sbin/start-all.sh
         /opt/spark-3.1.2-bin-without-hadoop/sbin/start-history-server.sh

@@ -41,8 +41,8 @@ ENV YARN_RESOURCEMANAGER_USER root
 ENV YARN_NODEMANAGER_USER root
 ENV YARN_CONF_DIR /home/hadoop/hadoop-${HADOOP_VERSION}/etc/hadoop
 ENV HADOOP_HOME /home/hadoop/hadoop-${HADOOP_VERSION}
+ENV HADOOP_LOG_DIR $HADOOP_HOME/logs
 ENV HADOOP_CONF_DIR /home/hadoop/hadoop-${HADOOP_VERSION}/etc/hadoop
-# ENV HADOOP_LOG_DIR $HADOOP_HOME/logs
 ENV LD_LIBRARY_PATH /home/hadoop/hadoop-${HADOOP_VERSION}/lib/native:$LD_LIBRARY_PATH
 
 # expose several ports
@@ -54,12 +54,12 @@ RUN wget -P /opt https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${S
     tar zxf /opt/spark-${SPARK_VERSION}-bin-without-hadoop.tgz -C /opt && \
     rm /opt/spark-${SPARK_VERSION}-bin-without-hadoop.tgz
 
-ENV PATH $PATH:/opt/spark-${SPARK_VERSION}-bin-without-hadoop/bin
 ENV SPARK_HOME /opt/spark-${SPARK_VERSION}-bin-without-hadoop
 ENV PYSPARK_PYTHON python3
+ENV PATH $PATH:/opt/spark-${SPARK_VERSION}-bin-without-hadoop/bin
 
 RUN echo "export JAVA_HOME=$JAVA_HOME" >> /opt/spark-${SPARK_VERSION}-bin-without-hadoop/sbin/spark-config.sh && \
-    echo "export SPARK_DIST_CLASSPATH=$(hadoop classpath)" >> /opt/spark-${SPARK_VERSION}-bin-without-hadoop/sbin/spark-config.sh
+    echo "export SPARK_DIST_CLASSPATH=$(hadoop classpath)" >> ~/.bashrc
 
 EXPOSE 7077 4040
 
