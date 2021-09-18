@@ -31,3 +31,11 @@ We may use docker images from [Data Mechanics](https://hub.docker.com/r/datamech
 to run spark apps without the need of installing and configuring it.
 On this [folder](spark-on-docker) all you need to do is to map the source code volume into `/opt/application` and 
 change the `command` on the docker-compose file. Then, just `docker-compose up`.
+
+
+## Referencies
+- [Spark Configuration](https://spark.apache.org/docs/latest/configuration.html#yarn)
+- [Spark's Hadoop Free](https://spark.apache.org/docs/latest/hadoop-provided.html)
+- [Hadoop Single Node Cluster](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html)
+- [Spark on Top of Hadoop YARN Cluster](https://www.linode.com/docs/guides/install-configure-run-spark-on-top-of-hadoop-yarn-cluster/)
+- [Monitoring (Spark History)](https://spark.apache.org/docs/latest/monitoring.html)
