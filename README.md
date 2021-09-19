@@ -44,7 +44,7 @@ Most of the values are the default ones.
 spark-submit --master yarn \ # Default is None
              --deploy-mode client \ # Default is None. Options [cluster, client]
              --conf spark.executor.instances=1 \ # Dynamically defined.
-             --conf spark.executor.cores=1 \ # 1 in YARN mode, all in standalone and mesos.
+             --conf spark.executor.cores=1 \ # 1 in YARN mode, all in standalone and mesos. Means that each executor can run a maximum of 1 task at the same time.
              --conf spark.executor.memory=1G \ # Memory per executor.
              --conf spark.executor.memoryOverhead=384M \ # Amount of additional memory to be allocated per executor process. Default: executorMemory * 0.10, with minimum of 384.
              --conf spark.executor.heartbeatInterval=10s \ # Interval between each executor's heartbeats to the driver. should be significantly less than spark.network.timeout.
@@ -64,6 +64,12 @@ spark-submit --master yarn \ # Default is None
              --conf spark.jars.packages=groupId:artifactId:version # Comma-separated list of Maven coordinates of jars to include on the driver and executor classpaths.
              --conf spark.checkpoint.compress=true \ # Compress RDD checkpoints. Default is false
              --conf spark.io.compression.codec=lz4 \ # Codec used to compress internal data such as RDD partitions, event log, broadcast variables and shuffle outputs. Options: lz4, lzf, snappy, zstd.
+             --conf spark.task.cpus=1 \ # Number of cores to allocate for each task.
+             --conf spark.task.maxFailures=4 \ # Number of failures of any particular task before giving up on the job.
+             --conf spark.sql.avro.compression.codec=snappy \ # Compression codec used in writing of AVRO files. Supported codecs: uncompressed, deflate, snappy, bzip2 and xz.
+             --conf spark.sql.parquet.compression.codec=snappy \ # Compression codec used when writing Parquet files. Acceptable values include: none, uncompressed, snappy, gzip, lzo, brotli, lz4, zstd.
+             --conf spark.sql.shuffle.partitions=200 \ # The default number of partitions to use when shuffling data for joins or aggregations.
+             --conf spark.yarn.maxAppAttempts=1 \ # Number of attempts on executing an application on YARN.
 ```
 
 ## Referencies
