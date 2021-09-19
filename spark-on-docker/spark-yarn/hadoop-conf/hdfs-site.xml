@@ -30,12 +30,12 @@
 
     <property>
         <name>dfs.namenode.name.dir</name>
-        <value>file:/home/hadoop/data/namenode</value>
+        <value>file:/opt/data/namenode</value>
     </property>
     
     <property>
         <name>dfs.datanode.data.dir</name>
-        <value>file:/home/hadoop/data/datanode</value>
+        <value>file:/opt/data/datanode</value>
     </property>
 
 </configuration>

@@ -14,17 +14,21 @@ services:
     hostname: localhost
     ports:
       - 8080:18080 # Spark History Server
+      - 4040:4040 # Spark UI
       - 8088:8088 # Resource Manager UI
       - 8042:8042 # Node
       - 9864:9864 # Datanode port
       - 9870:9870 # HDFS UI
+      - 8998:8998 # Livy UI
+      - 8888:8888 # Jupyter Notebook
     volumes:
       - ./apps:/opt/apps # put your apps here and run spark-submit.sh (edit it)
-      - ./hadoop-conf/core-site.xml:/home/hadoop/hadoop-3.3.1/etc/hadoop/core-site.xml
-      - ./hadoop-conf/hdfs-site.xml:/home/hadoop/hadoop-3.3.1/etc/hadoop/hdfs-site.xml
-      - ./hadoop-conf/mapred-site.xml:/home/hadoop/hadoop-3.3.1/etc/hadoop/mapred-site.xml
-      - ./hadoop-conf/yarn-site.xml:/home/hadoop/hadoop-3.3.1/etc/hadoop/yarn-site.xml
+      - ./hadoop-conf/core-site.xml:/opt/hadoop-3.3.1/etc/hadoop/core-site.xml
+      - ./hadoop-conf/hdfs-site.xml:/opt/hadoop-3.3.1/etc/hadoop/hdfs-site.xml
+      - ./hadoop-conf/mapred-site.xml:/opt/hadoop-3.3.1/etc/hadoop/mapred-site.xml
+      - ./hadoop-conf/yarn-site.xml:/opt/hadoop-3.3.1/etc/hadoop/yarn-site.xml
       - ./spark-conf/spark-defaults.conf:/opt/spark-3.1.2-bin-without-hadoop/conf/spark-defaults.conf
+      - ./livy-conf/livy.conf:/opt/apache-livy/conf/livy.conf
     command:
       - "-c"
       - |
@@ -52,4 +56,10 @@ services:
         /opt/spark-3.1.2-bin-without-hadoop/sbin/start-all.sh
         /opt/spark-3.1.2-bin-without-hadoop/sbin/start-history-server.sh
 
-        tail -f /home/hadoop/hadoop-3.3.1/logs/*log
+        # echo "Starting livy..."
+        # /opt/apache-livy/bin/livy-server start
+
+        echo "Starting jupyter lab..."
+        jupyter lab --allow-root --no-browser --NotebookApp.token=''
+
+        tail -f /opt/hadoop-3.3.1/logs/*log
