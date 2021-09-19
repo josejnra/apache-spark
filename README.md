@@ -1,45 +1,50 @@
-## Run Spark
+# Apache Spark
+Apache Spark is a unified analytics engine for large-scale data processing. Spark applications run as independent sets of processes on a cluster, coordinated by the SparkContext object in your main program (called the driver program). SparkContext can connect to several types of cluster managers (either Spark’s own standalone cluster manager, Mesos or YARN), which allocate resources across applications.
+<p align="center">
+    <img src="images/spark-architecture.png" alt="Spark Architecture" />
+</p>
+
+## Concepts
+### Application
+User program built on Spark. Consists of a driver program and executors on the cluster. `spark-submit` is to submit a Spark application for execution (not Spark jobs). A single Spark application can have at least one Spark job.
+
+### Driver Program	
+The process running the main() function of the application and creating the SparkContext. The driver does not run computations (filter, map, reduce, etc). When `collect()` is called on an RDD or Dataset, the whole data is sent to the Driver.
+
+### Executor
+A process launched for an application on a worker node, that runs tasks and keeps data in memory or disk storage across them. Each application has its own executors. So, executors are JVMs that run on Worker nodes. These are the JVMs that actually run **Tasks** on data **Partitions**.
+
+### Cluster manager
+An external service for acquiring resources on the cluster (e.g. standalone manager, Mesos, YARN).
+
+### Job
+A parallel computation consisting of multiple tasks that gets spawned in response to a Spark action (e.g. save, collect). A **Job** is a sequence of **Stages**, triggered by an **Action** such as `.count()`, `foreachRdd()`, `collect()`, `read()` or `write()`.
+### Stage
+Each job gets divided into smaller sets of tasks called stages that depend on each other (similar to the map and reduce stages in MapReduce). A Stage is a sequence of **Tasks** that can all be run together, in **parallel**, without a shuffle. For example: using .read to read a file from disk, then runnning .map and .filter can all be done without a shuffle, so it can fit in a single stage. The number of Tasks in a Stage also depends upon the number of Partitions your datasets have.
+
+### Task
+A unit of work that will be sent to one executor. A Task is a single operation (`.map` or `.filter`) applied to a single Partition. Each Task is executed as a single thread in an Executor. If your dataset has 2 **Partitions**, an operation such as a `filter()` will trigger 2 Tasks, one for each **Partition**.
+
+### Shuffle
+A Shuffle refers to an operation where data is re-partitioned across a Cluster. `join` and any operation that ends with `ByKey` will trigger a Shuffle. It is a costly operation because a lot of data can be sent via the network.
+
+### Partition
+A Partition is a logical chunk of your RDD/Dataset/DataFrame. Data is split into Partitions so that each Executor can operate on a single part, enabling parallelization. It can be processed by a single Executor core. For example: If you have 4 data partitions and you have 4 executor cores, you can process each Stage in parallel, in a single pass.
+
+## Run Spark Locally
 At [spark-on-docker](spark-on-docker) you may run spark locally in several different ways. Using docker-compose or even on kubernetes.
-
-## Linux Configuration
-Set up the environment by defining the environment variables in your `~/.bashrc`.
-```shell
-# easily define which version of spark and python to use 
-export PYTHON_FOR_SPARK=~/venvs/python37/bin
-export SPARK_2_4_7=~/Frameworks/spark-2.4.7-bin-hadoop2.7
-export SPARK_3_0_2=~/Frameworks/spark-3.0.2-bin-hadoop2.7
-
-###############
-# SPARK CONFIG
-###############
-export SPARK_HOME=$SPARK_3_0_2
-export PATH=$PATH:$SPARK_HOME/bin
-export PYSPARK_PYTHON=$PYTHON_FOR_SPARK/python
-
-# run pyspark with ipython
-export PYSPARK_DRIVER_PYTHON=$PYTHON_FOR_SPARK/ipython
-
-```
 
 ## Jupyter Notebook
 In the following link is shown two methods of how to use pyspark with jupyter notebook.
 [https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes](https://www.sicara.ai/blog/2017-05-02-get-started-pyspark-jupyter-notebook-3-minutes)
-
-
-## Spark Submit Using Docker Images
-We may use docker images from [Data Mechanics](https://hub.docker.com/r/datamechanics/spark) in order
-to run spark apps without the need of installing and configuring it.
-On this [folder](spark-on-docker) all you need to do is to map the source code volume into `/opt/application` and 
-change the `command` on the docker-compose file. Then, just `docker-compose up`.
-
 
 ## Some Spark Parameters
 Most of the values are the default ones.
 ```shell
 spark-submit --master yarn \ # Default is None
              --deploy-mode client \ # Default is None. Options [cluster, client]
-             --conf spark.executor.instances=2 \ 
-             --conf spark.executor.cores=3 \ # Cores per executor.
+             --conf spark.executor.instances=1 \ # Dynamically defined.
+             --conf spark.executor.cores=1 \ # 1 in YARN mode, all in standalone and mesos.
              --conf spark.executor.memory=1G \ # Memory per executor.
              --conf spark.executor.memoryOverhead=384M \ # Amount of additional memory to be allocated per executor process. Default: executorMemory * 0.10, with minimum of 384.
              --conf spark.executor.heartbeatInterval=10s \ # Interval between each executor's heartbeats to the driver. should be significantly less than spark.network.timeout.
@@ -57,6 +62,8 @@ spark-submit --master yarn \ # Default is None
              --conf spark.sql.hive.metastorePartitionPruning=true \ # Parquet: minimise the amount of data read during queries.
              --conf spark.jars=https://path/to/my/file.jar \ # Comma-separated list of jars to include on the driver and executor classpaths. Supports following URL scheme hdfs/http/https/ftp.
              --conf spark.jars.packages=groupId:artifactId:version # Comma-separated list of Maven coordinates of jars to include on the driver and executor classpaths.
+             --conf spark.checkpoint.compress=true \ # Compress RDD checkpoints. Default is false
+             --conf spark.io.compression.codec=lz4 \ # Codec used to compress internal data such as RDD partitions, event log, broadcast variables and shuffle outputs. Options: lz4, lzf, snappy, zstd.
 ```
 
 ## Referencies
@@ -66,3 +73,4 @@ spark-submit --master yarn \ # Default is None
 - [Spark on Top of Hadoop YARN Cluster](https://www.linode.com/docs/guides/install-configure-run-spark-on-top-of-hadoop-yarn-cluster/)
 - [Monitoring (Spark History)](https://spark.apache.org/docs/latest/monitoring.html)
 - [Recommended Settings for Writing to Object Store](https://spark.apache.org/docs/3.1.2/cloud-integration.html#recommended-settings-for-writing-to-object-stores)
+- [Some Concepts](https://queirozf.com/entries/apache-spark-architecture-overview-clusters-jobs-stages-tasks)
