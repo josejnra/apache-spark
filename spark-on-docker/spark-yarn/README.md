@@ -4,7 +4,7 @@
 - Apache Livy 0.7.1
 - Jupyter Lab
 
-You may simply change the environment variables `HADOOP_VERSION`, `SPARK_VERSION` and `LIVY_VERSION` on the [Dockerfile](Dockerfile) in order to create another docker image with different versions for the services. Besides that, you have to update the [docker-compose.yaml](docker-compose.yaml) file to be according the new image.
+You may simply change the environment variables `HADOOP_VERSION`, `SPARK_VERSION` and `LIVY_VERSION` on the [Dockerfile](Dockerfile) in order to create another docker image with different versions for the services. Besides that, you may have to update the [docker-compose.yaml](docker-compose.yaml) file to be according the new image.
 
 ### Build Image
 ```shell

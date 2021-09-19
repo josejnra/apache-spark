@@ -53,8 +53,8 @@ services:
 
         echo "Starting spark..."
         export SPARK_DIST_CLASSPATH=$$(hadoop classpath)
-        /opt/spark-3.1.2-bin-without-hadoop/sbin/start-all.sh
-        /opt/spark-3.1.2-bin-without-hadoop/sbin/start-history-server.sh
+        /opt/spark-$${SPARK_VERSION}-bin-without-hadoop/sbin/start-all.sh
+        /opt/spark-$${SPARK_VERSION}-bin-without-hadoop/sbin/start-history-server.sh
 
         # echo "Starting livy..."
         # /opt/apache-livy/bin/livy-server start
@@ -62,4 +62,4 @@ services:
         echo "Starting jupyter lab..."
         jupyter lab --allow-root --no-browser --NotebookApp.token=''
 
-        tail -f /opt/hadoop-3.3.1/logs/*log
+        tail -f /opt/hadoop-$${HADOOP_VERSION}/logs/*log
