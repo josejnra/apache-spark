@@ -72,9 +72,11 @@ EXPOSE 7077 4040
 # SETUP LIVY
 #############################
 
-RUN wget -P /opt https://mirror.nbtelecom.com.br/apache/incubator/livy/0.7.1-incubating/apache-livy-0.7.1-incubating-bin.zip && \
-    unzip /opt/apache-livy-0.7.1-incubating-bin.zip -d /opt && \
-    mv /opt/apache-livy-0.7.1-incubating-bin /opt/apache-livy && \
+ENV LIVY_VERSION 0.7.1
+
+RUN wget -P /opt https://mirror.nbtelecom.com.br/apache/incubator/livy/${LIVY_VERSION}-incubating/apache-livy-${LIVY_VERSION}-incubating-bin.zip && \
+    unzip /opt/apache-livy-${LIVY_VERSION}-incubating-bin.zip -d /opt && \
+    mv /opt/apache-livy-${LIVY_VERSION}-incubating-bin /opt/apache-livy && \
     rm /opt/apache-livy-*
 
 EXPOSE 8998
