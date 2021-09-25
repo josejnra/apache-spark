@@ -36,6 +36,7 @@ services:
       - |
         echo "Starting ssh service..."
         service ssh start
+        ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 
         echo "Formating the filesystem..."
         hdfs namenode -format
@@ -59,45 +60,46 @@ services:
         /opt/spark-$${SPARK_VERSION}-bin-without-hadoop/sbin/start-history-server.sh
 
         # echo "Starting livy..."
-        # /opt/apache-livy/bin/livy-server start
+        /opt/apache-livy/bin/livy-server start
 
         echo "Starting jupyter lab..."
         jupyter lab --allow-root --no-browser --NotebookApp.token=''
 
         tail -f /opt/hadoop-$${HADOOP_VERSION}/logs/*log
 
-  # elasticsearch:
-  #   image: elasticsearch:7.14.1
-  #   container_name: elasticsearch
-  #   networks:
-  #     - spark
-  #   environment:
-  #     - discovery.type=single-node
-  #   volumes:
-  #     - ./elastic-data:/user/share/elasticsearch/data
-  #   user: "1000:0"
-  #   ports: 
-  #     - 9200:9200
+  elasticsearch:
+    image: elasticsearch:7.14.1
+    container_name: elasticsearch
+    networks:
+      - spark
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g # Xms initial size of total heap space, Xmx maximum size of total heap space
+    volumes:
+      - ./elastic-data:/user/share/elasticsearch/data
+    user: "1000:0"
+    ports: 
+      - 9200:9200
 
-  # kibana:
-  #   image: kibana:7.14.1
-  #   container_name: kibana
-  #   networks:
-  #     - spark
-  #   user: "1000:0"
-  #   ports: 
-  #     - 5601:5601
+  kibana:
+    image: kibana:7.14.1
+    container_name: kibana
+    networks:
+      - spark
+    user: "1000:0"
+    ports: 
+      - 5601:5601
 
-  # mysql:
-  #   image: mysql:8.0.26
-  #   container_name: mysql
-  #   networks:
-  #     - spark
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: "root"
-  #     MYSQL_DATABASE: "mydb"
-  #     MYSQL_USER: "user"
-  #     MYSQL_PASSWORD: "password"
-  #   volumes:
-  #     - ./mysql-data:/var/lib/mysql
-  #   command: --explicit_defaults_for_timestamp
+  mysql:
+    image: mysql:8.0.26
+    container_name: mysql
+    networks:
+      - spark
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "mydb"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    command: --explicit_defaults_for_timestamp

@@ -22,8 +22,7 @@ WORKDIR /opt
 # create ssh
 RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa && \
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
-    chmod 0600 ~/.ssh/authorized_keys && \
-    ssh-keyscan -H localhost >> ~/.ssh/known_hosts
+    chmod 0600 ~/.ssh/authorized_keys
 
 RUN wget https://downloads.apache.org/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
     tar zxf hadoop-${HADOOP_VERSION}.tar.gz && \
