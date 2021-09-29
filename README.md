@@ -8,7 +8,7 @@ Apache Spark is a unified analytics engine for large-scale data processing. Spar
 ### Application
 User program built on Spark. Consists of a driver program and executors on the cluster. `spark-submit` is to submit a Spark application for execution (not Spark jobs). A single Spark application can have at least one Spark job.
 
-### Driver Program	
+### Driver Program
 The process running the main() function of the application and creating the SparkContext. The driver does not run computations (filter, map, reduce, etc). When `collect()` is called on an RDD or Dataset, the whole data is sent to the Driver.
 
 ### Executor
@@ -30,6 +30,17 @@ A Shuffle refers to an operation where data is re-partitioned across a Cluster. 
 
 ### Partition
 A Partition is a logical chunk of your RDD/Dataset/DataFrame. Data is split into Partitions so that each Executor can operate on a single part, enabling parallelization. It can be processed by a single Executor core. For example: If you have 4 data partitions and you have 4 executor cores, you can process each Stage in parallel, in a single pass.
+
+## Hadoop vs Spark
+### Hadoop
+- Slower performance, uses disks for storage and depends on disk read and write speed.
+- Best for batch processing. Uses MapReduce to split a large dataset across a cluster for parallel analysis. 
+- More difficult to use with less supported languages. Uses Java or Python for MapReduce apps.
+
+### Spark
+- Faster in-memory performance with reduced disk reading and writing operations. 
+- Suitable for iterative and live-stream data analysis. Works with RDDs and DAGs to run operations.
+- More user friendly. Allows interactive shell mode. APIs can be written in Java, Scala, R, Python, Spark SQL. 
 
 ## Run Spark Locally
 At [spark-on-docker](spark-on-docker) you may run spark locally in several different ways. Using docker-compose or even on kubernetes.
@@ -81,3 +92,4 @@ spark-submit --master yarn \ # Default is None
 - [Monitoring (Spark History)](https://spark.apache.org/docs/latest/monitoring.html)
 - [Recommended Settings for Writing to Object Store](https://spark.apache.org/docs/3.1.2/cloud-integration.html#recommended-settings-for-writing-to-object-stores)
 - [Some Concepts](https://queirozf.com/entries/apache-spark-architecture-overview-clusters-jobs-stages-tasks)
+- [Hadoop vs Spark](https://phoenixnap.com/kb/hadoop-vs-spark)

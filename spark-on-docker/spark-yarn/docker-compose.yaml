@@ -97,9 +97,7 @@ services:
       - spark
     environment:
       MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "mydb"
-      MYSQL_USER: "user"
-      MYSQL_PASSWORD: "password"
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/samples:/docker-entrypoint-initdb.d
     command: --explicit_defaults_for_timestamp
