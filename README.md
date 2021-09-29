@@ -93,3 +93,6 @@ spark-submit --master yarn \ # Default is None
 - [Recommended Settings for Writing to Object Store](https://spark.apache.org/docs/3.1.2/cloud-integration.html#recommended-settings-for-writing-to-object-stores)
 - [Some Concepts](https://queirozf.com/entries/apache-spark-architecture-overview-clusters-jobs-stages-tasks)
 - [Hadoop vs Spark](https://phoenixnap.com/kb/hadoop-vs-spark)
+- [Spark Tips. Partition Tuning](https://luminousmen.com/post/spark-tips-partition-tuning)
+- [Bucketing in Pyspark](https://luminousmen.com/post/the-5-minute-guide-to-using-bucketing-in-pyspark)
+- [Bucketing](https://towardsdatascience.com/best-practices-for-bucketing-in-spark-sql-ea9f23f7dd53)
