@@ -69,6 +69,7 @@ spark-submit --master yarn \ # Default is None
              --conf spark.sql.avro.compression.codec=snappy \ # Compression codec used in writing of AVRO files. Supported codecs: uncompressed, deflate, snappy, bzip2 and xz.
              --conf spark.sql.parquet.compression.codec=snappy \ # Compression codec used when writing Parquet files. Acceptable values include: none, uncompressed, snappy, gzip, lzo, brotli, lz4, zstd.
              --conf spark.sql.shuffle.partitions=200 \ # The default number of partitions to use when shuffling data for joins or aggregations.
+             --conf spark.sql.adaptive.enabled=true \ # Enable adaptive query execution, which re-optimizes the query plan in the middle of query execution, based on accurate runtime statistics. (Fixing skew) Default: false
              --conf spark.yarn.maxAppAttempts=1 \ # Number of attempts on executing an application on YARN.
 ```
 
