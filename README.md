@@ -96,3 +96,4 @@ spark-submit --master yarn \ # Default is None
 - [Spark Tips. Partition Tuning](https://luminousmen.com/post/spark-tips-partition-tuning)
 - [Bucketing in Pyspark](https://luminousmen.com/post/the-5-minute-guide-to-using-bucketing-in-pyspark)
 - [Bucketing](https://towardsdatascience.com/best-practices-for-bucketing-in-spark-sql-ea9f23f7dd53)
+- [Best Practices for Bucketing in Spark SQL](https://towardsdatascience.com/best-practices-for-bucketing-in-spark-sql-ea9f23f7dd53)
