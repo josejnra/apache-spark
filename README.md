@@ -97,3 +97,4 @@ spark-submit --master yarn \ # Default is None
 - [Bucketing in Pyspark](https://luminousmen.com/post/the-5-minute-guide-to-using-bucketing-in-pyspark)
 - [Bucketing](https://towardsdatascience.com/best-practices-for-bucketing-in-spark-sql-ea9f23f7dd53)
 - [Best Practices for Bucketing in Spark SQL](https://towardsdatascience.com/best-practices-for-bucketing-in-spark-sql-ea9f23f7dd53)
+- [Structured Streaming Kafka Integration](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html)
