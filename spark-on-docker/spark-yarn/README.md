@@ -1,6 +1,6 @@
 ## Apps availables on this Docker Image
 - Hadoop 3.3.1
-- Apache Spark 3.1.2
+- Apache Spark 3.2.0
 - Apache Livy 0.7.1
 - Jupyter Lab
 

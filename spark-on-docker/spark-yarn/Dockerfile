@@ -52,7 +52,7 @@ EXPOSE 9871 9870 9869 9868 9867 9866 9865 9864 9820 9000 8088
 # SETUP SPARK
 #############################
 
-ENV SPARK_VERSION 3.1.2
+ENV SPARK_VERSION 3.2.0
 
 RUN wget -P /opt https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz && \
     tar zxf /opt/spark-${SPARK_VERSION}-bin-without-hadoop.tgz -C /opt && \

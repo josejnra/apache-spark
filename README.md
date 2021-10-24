@@ -90,7 +90,7 @@ spark-submit --master yarn \ # Default is None
 - [Hadoop Single Node Cluster](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html)
 - [Spark on Top of Hadoop YARN Cluster](https://www.linode.com/docs/guides/install-configure-run-spark-on-top-of-hadoop-yarn-cluster/)
 - [Monitoring (Spark History)](https://spark.apache.org/docs/latest/monitoring.html)
-- [Recommended Settings for Writing to Object Store](https://spark.apache.org/docs/3.1.2/cloud-integration.html#recommended-settings-for-writing-to-object-stores)
+- [Recommended Settings for Writing to Object Store](https://spark.apache.org/docs/3.2.0/cloud-integration.html#recommended-settings-for-writing-to-object-stores)
 - [Some Concepts](https://queirozf.com/entries/apache-spark-architecture-overview-clusters-jobs-stages-tasks)
 - [Hadoop vs Spark](https://phoenixnap.com/kb/hadoop-vs-spark)
 - [Spark Tips. Partition Tuning](https://luminousmen.com/post/spark-tips-partition-tuning)
