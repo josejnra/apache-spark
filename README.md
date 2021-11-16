@@ -81,6 +81,7 @@ spark-submit --master yarn \ # Default is None
              --conf spark.sql.parquet.compression.codec=snappy \ # Compression codec used when writing Parquet files. Acceptable values include: none, uncompressed, snappy, gzip, lzo, brotli, lz4, zstd.
              --conf spark.sql.shuffle.partitions=200 \ # The default number of partitions to use when shuffling data for joins or aggregations.
              --conf spark.sql.adaptive.enabled=true \ # Enable adaptive query execution, which re-optimizes the query plan in the middle of query execution, based on accurate runtime statistics. (Fixing skew) Default: false
+             --conf spark.sql.sources.partitionOverwriteMode=static \ # Currently support 2 modes: static and dynamic. In static mode, Spark deletes all the partitions that match the partition specification in the INSERT statement, before overwriting. In dynamic mode, Spark doesn't delete partitions ahead, and only overwrite those partitions that have data written into it at runtime.
              --conf spark.yarn.maxAppAttempts=1 \ # Number of attempts on executing an application on YARN.
 ```
 
