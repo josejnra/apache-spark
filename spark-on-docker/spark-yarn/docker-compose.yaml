@@ -103,7 +103,7 @@ services:
     command: --explicit_defaults_for_timestamp
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:6.2.1
+    image: confluentinc/cp-zookeeper:7.0.0
     hostname: zookeeper
     container_name: zookeeper
     networks:
@@ -113,7 +113,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka-broker:
-    image: confluentinc/cp-kafka:6.2.1
+    image: confluentinc/cp-kafka:7.0.0
     hostname: kafka-broker
     container_name: kafka-broker
     networks:
@@ -135,3 +135,13 @@ services:
       KAFKA_JMX_HOSTNAME: localhost
     depends_on:
       - zookeeper
+
+  graphite:
+    image: graphiteapp/graphite-statsd:1.1.8-2
+    container_name: graphite
+    networks:
+      - spark
+    ports: 
+      - 80:80 # graphite webui
+      - 8125:8125 # statsd
+      - 8126:8126 # statsd admin
