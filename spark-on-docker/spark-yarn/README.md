@@ -16,8 +16,9 @@ docker-compose build
 docker-compose up -d
 ```
 Once you run this docker-compose, jupyter lab will be available at this [link](http://localhost:8888). If you want to use apache livy you must uncomment the command that starts the service on [docker-compose.yaml](docker-compose.yaml).
+
 ### Execute spark-submit
-In order to run your apps, put all your app files within [apps](apps). Edit the [spark-submit.sh](spark-submit.sh) to point to your app, then just run:
+In order to run your apps, put all your app files within [apps](apps). Then just run:
 ```shell
-./spark-submit.sh
+./spark-submit.sh example.py
 ```
