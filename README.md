@@ -82,11 +82,13 @@ spark-submit --master yarn \ # Default is None
              --conf spark.sql.shuffle.partitions=200 \ # The default number of partitions to use when shuffling data for joins or aggregations.
              --conf spark.sql.adaptive.enabled=true \ # Enable adaptive query execution, which re-optimizes the query plan in the middle of query execution, based on accurate runtime statistics. (Fixing skew) Default: false
              --conf spark.sql.sources.partitionOverwriteMode=static \ # Currently support 2 modes: static and dynamic. In static mode, Spark deletes all the partitions that match the partition specification in the INSERT statement, before overwriting. In dynamic mode, Spark doesn't delete partitions ahead, and only overwrite those partitions that have data written into it at runtime.
+             --conf spark.sql.warehouse.dir=$PWD/spark-warehouse \ # The default location for managed databases and tables.
              --conf spark.yarn.maxAppAttempts=1 \ # Number of attempts on executing an application on YARN.
 ```
 
 ## Referencies
-- [Spark Configuration](https://spark.apache.org/docs/latest/configuration.html#yarn)
+- [Spark Configuration](https://spark.apache.org/docs/latest/configuration.html)
+- [Spark Python API Docs](https://spark.apache.org/docs/latest/api/python/reference)
 - [Spark's Hadoop Free](https://spark.apache.org/docs/latest/hadoop-provided.html)
 - [Hadoop Single Node Cluster](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html)
 - [Spark on Top of Hadoop YARN Cluster](https://www.linode.com/docs/guides/install-configure-run-spark-on-top-of-hadoop-yarn-cluster/)

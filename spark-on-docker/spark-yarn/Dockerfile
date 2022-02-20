@@ -86,7 +86,8 @@ EXPOSE 8998
 
 RUN python3 -m pip install jupyterlab \
                            ipython \
-                           pyspark==${SPARK_VERSION}
+                           pyspark==${SPARK_VERSION} \
+                           delta-spark==1.1.0
 
 EXPOSE 8888
 
