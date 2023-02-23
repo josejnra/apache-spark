@@ -6,7 +6,7 @@ networks:
 services: 
 
   spark:
-    image: spark-yarn:3.3.1
+    image: spark-yarn:3.3.2
     build:
       context: .
       dockerfile: Dockerfile
@@ -29,7 +29,7 @@ services:
       - ./hadoop-conf/hdfs-site.xml:/opt/hadoop-3.3.4/etc/hadoop/hdfs-site.xml
       - ./hadoop-conf/mapred-site.xml:/opt/hadoop-3.3.4/etc/hadoop/mapred-site.xml
       - ./hadoop-conf/yarn-site.xml:/opt/hadoop-3.3.4/etc/hadoop/yarn-site.xml
-      - ./spark-conf/spark-defaults.conf:/opt/spark-3.3.1-bin-without-hadoop/conf/spark-defaults.conf
+      - ./spark-conf/spark-defaults.conf:/opt/spark-3.3.2-bin-without-hadoop/conf/spark-defaults.conf
       - ./livy-conf/livy.conf:/opt/apache-livy/conf/livy.conf
     command:
       - "-c"
@@ -68,7 +68,7 @@ services:
         tail -f /opt/hadoop-$${HADOOP_VERSION}/logs/*log
 
   elasticsearch:
-    image: elasticsearch:7.17.8
+    image: elasticsearch:7.17.9
     container_name: elasticsearch
     networks:
       - spark
@@ -82,7 +82,7 @@ services:
       - 9200:9200
 
   kibana:
-    image: kibana:7.17.8
+    image: kibana:7.17.9
     container_name: kibana
     networks:
       - spark
@@ -91,7 +91,7 @@ services:
       - 5601:5601
 
   mysql:
-    image: mysql:8.0.31
+    image: mysql:8.0.32
     container_name: mysql
     networks:
       - spark
