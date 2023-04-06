@@ -15,7 +15,7 @@ RUN apt-get update && \
                        vim \
                        python3-pip
 
-ENV HADOOP_VERSION 3.3.4
+ENV HADOOP_VERSION 3.3.5
 
 WORKDIR /opt
 

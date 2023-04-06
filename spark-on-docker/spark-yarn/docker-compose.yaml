@@ -25,10 +25,10 @@ services:
       - 8888:8888 # Jupyter Notebook
     volumes:
       - ./apps:/opt/apps # put your apps here and run spark-submit.sh (edit it)
-      - ./hadoop-conf/core-site.xml:/opt/hadoop-3.3.4/etc/hadoop/core-site.xml
-      - ./hadoop-conf/hdfs-site.xml:/opt/hadoop-3.3.4/etc/hadoop/hdfs-site.xml
-      - ./hadoop-conf/mapred-site.xml:/opt/hadoop-3.3.4/etc/hadoop/mapred-site.xml
-      - ./hadoop-conf/yarn-site.xml:/opt/hadoop-3.3.4/etc/hadoop/yarn-site.xml
+      - ./hadoop-conf/core-site.xml:/opt/hadoop-3.3.5/etc/hadoop/core-site.xml
+      - ./hadoop-conf/hdfs-site.xml:/opt/hadoop-3.3.5/etc/hadoop/hdfs-site.xml
+      - ./hadoop-conf/mapred-site.xml:/opt/hadoop-3.3.5/etc/hadoop/mapred-site.xml
+      - ./hadoop-conf/yarn-site.xml:/opt/hadoop-3.3.5/etc/hadoop/yarn-site.xml
       - ./spark-conf/spark-defaults.conf:/opt/spark-3.3.2-bin-without-hadoop/conf/spark-defaults.conf
       - ./livy-conf/livy.conf:/opt/apache-livy/conf/livy.conf
     command:
@@ -103,7 +103,7 @@ services:
     command: --explicit_defaults_for_timestamp
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.3.1
+    image: confluentinc/cp-zookeeper:7.3.3
     hostname: zookeeper
     container_name: zookeeper
     networks:
@@ -113,7 +113,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka-broker:
-    image: confluentinc/cp-kafka:7.3.1
+    image: confluentinc/cp-kafka:7.3.3
     hostname: kafka-broker
     container_name: kafka-broker
     networks:
