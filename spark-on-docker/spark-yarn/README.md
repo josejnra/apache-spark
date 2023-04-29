@@ -1,6 +1,6 @@
 ## Apps availables on this docker-compose file
 - Hadoop 3.3.5
-- Apache Spark 3.3.2
+- Apache Spark 3.4.0
 - Apache Livy 0.7.1
 - Jupyter Lab
 - Elasticsearch 7.17.9
@@ -26,4 +26,12 @@ Once you run this docker-compose, jupyter lab will be available at this [link](h
 In order to run your apps, put all your app files within [apps](apps). Then just run:
 ```shell
 ./spark-submit.sh example.py
+```
+
+
+### Creates Spark Scala project
+
+```shell
+# spark project
+sbt new holdenk/sparkProjectTemplate.g8
 ```
