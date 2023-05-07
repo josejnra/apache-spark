@@ -10,3 +10,5 @@ spark-on-docker/spark-yarn/apps/spark-warehouse/
 
 .metals
 .vscode
+
+*.jar
