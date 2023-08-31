@@ -6,6 +6,7 @@ venv
 tmp
 
 spark-on-docker/spark-yarn/mysql/data/
+spark-on-docker/spark-yarn/postgres/data/
 spark-on-docker/spark-yarn/apps/spark-warehouse/
 
 .metals

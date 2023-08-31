@@ -3,9 +3,9 @@
 - Apache Spark 3.4.1
 - Apache Livy 0.7.1
 - Jupyter Lab
-- Elasticsearch 7.17.10
-- Mysql 8.0.34
-- Kafka 7.4.1
+- Elasticsearch 7.17.12
+- Mysql 8.1.0
+- Kafka 7.5.0
 - Graphite 1.1.10
 - Minio latest
 
