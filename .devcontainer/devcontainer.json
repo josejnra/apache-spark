@@ -4,10 +4,19 @@
 	"name": "Debian",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	// binding .ssh dir into dev container for fixing issue with git
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+	],
+
+	"runArgs": ["--name=apache-spark-vscode"],
+
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
 		"ghcr.io/devcontainers/features/python:1": {},
-		"ghcr.io/devcontainers-contrib/features/poetry:2": {},
+		"ghcr.io/devcontainers-contrib/features/poetry:2": {
+			"version": "latest"
+		},
 		"ghcr.io/devcontainers-contrib/features/sbt-sdkman:2": {},
 		"ghcr.io/devcontainers-contrib/features/scala-sdkman:2": {
 			"version": "2.12.17",
@@ -19,10 +28,16 @@
 			"extensions": [
 				"ms-python.python",
 				"scalameta.metals",
-				"scala-lang.scala"
-			]
+				"scala-lang.scala",
+				"tomoki1207.pdf",
+				"eamodio.gitlens",
+				"waderyan.gitblame"
+			],
+			"settings": {
+				"terminal.integrated.scrollback": 10000
+			}
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -34,5 +49,5 @@
 	// "customizations": {},
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"remoteUser": "vscode"
 }

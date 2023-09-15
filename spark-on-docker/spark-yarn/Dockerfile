@@ -88,7 +88,7 @@ RUN python3 -m pip install jupyterlab \
                            ipython \
                            pyspark==${SPARK_VERSION} \
                            delta-spark==2.4.0 \
-                           pandas==2.0.3 \
+                           pandas==2.1.0 \
                            spylon-kernel
 
 RUN python3 -m spylon_kernel install
