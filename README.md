@@ -11,6 +11,18 @@ User program built on Spark. Consists of a driver program and executors on the c
 ### Driver Program
 The process running the main() function of the application and creating the SparkContext. The driver does not run computations (filter, map, reduce, etc). When `collect()` is called on an RDD or Dataset, the whole data is sent to the Driver.
 
+### Spark Context
+Spark 1.x comes with three entry points: SparkContext, SQLContext, and HiveContext. And with the introduction of Spark 2.x, a new entry point named SparkSession was added. As a result, this single entry point effectively combines all of the functionality available in the three aforementioned contexts.
+
+SparkContext is the primary point of entry for Spark capabilities. A SparkContext represents a Spark cluster’s connection that is useful in building RDDs, accumulators, and broadcast variables on the cluster. It enables your Spark Application to connect to the Spark Cluster using Resource Manager. Also, before the creation of SparkContext, SparkConf must be created. __After creating the SparkContext, you can use it to create RDDs, broadcast variables, and accumulators, as well as access Spark services and perform jobs__. All of this can be done until SparkContext is terminated. Access to the other two contexts, SQLContext and HiveContext, is also possible through SparkContext. Since Spark 2.0, most SparkContext functions are also available in SparkSession. SparkContext’s default object sc is provided in Spark-Shell, and it can also be constructed programmatically using the SparkContext class. As a result, SparkContext provides numerous Spark functions. This includes getting the current status of the Spark Application, setting the configuration, canceling a task, canceling a stage, and more. It was a means to get started with all the Spark features prior to the introduction of SparkSession.
+### Spark Session
+Previously, as RDD was the major API, SparkContext was the entry point for Spark. It was constructed and modified with the help of context APIs. At that time, we have to use a distinct context for each API. We required StreamingContext for Streaming, SQLContext for SQL, and HiveContext for Hive. However, because the DataSet and DataFrame APIs are becoming new independent APIs, we require an entry-point construct for them. As a result, in Spark 2.0, we have a new __entry point built for DataSet and DataFrame APIs called SparkSession__.
+
+It combines SQLContext, HiveContext, and StreamingContext. All of the APIs accessible in those contexts are likewise available in SparkSession, and SparkSession includes a SparkContext for real computation. It’s worth noting that the previous SQLContext and HiveContext are still present in updated versions, but only for backward compatibility. As a result, when comparing SparkSession vs SparkContext, as of Spark 2.0.0, it is better to use SparkSession because it provides access to all of the Spark features that the other three APIs do. Its Spark object comes by default in Spark-shell, and it can be generated programmatically using the SparkSession builder pattern.
+
+### Spark Session vs Spark Context
+From Spark 2.0, SparkSession provides a common entry point for a Spark application. It allows you to interface with Spark’s numerous features with a less amount of constructs. Instead of SparkContext, HiveContext, and SQLContext, everything is now within a SparkSession. One aspect of the explanation why SparkSession is preferable over SparkContext in SparkSession Vs SparkContext battle is that __SparkSession unifies all of Spark’s numerous contexts, removing the developer’s need to worry about generating separate contexts__. Apart from this benefit, the Apache Spark developers have attempted to address the issue of numerous users sharing the same SparkContext.
+
 ### Executor
 A process launched for an application on a worker node, that runs tasks and keeps data in memory or disk storage across them. Each application has its own executors. So, executors are JVMs that run on Worker nodes. These are the JVMs that actually run **Tasks** on data **Partitions**.
 
@@ -101,3 +113,4 @@ spark-submit --master yarn \ # Default is None
 - [Bucketing](https://towardsdatascience.com/best-practices-for-bucketing-in-spark-sql-ea9f23f7dd53)
 - [Best Practices for Bucketing in Spark SQL](https://towardsdatascience.com/best-practices-for-bucketing-in-spark-sql-ea9f23f7dd53)
 - [Structured Streaming Kafka Integration](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html)
+- [Spark Session vs Spark Context](https://www.ksolves.com/blog/big-data/spark/sparksession-vs-sparkcontext-what-are-the-differences)
