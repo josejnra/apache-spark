@@ -6,7 +6,7 @@ networks:
 services: 
 
   spark:
-    image: spark-yarn:3.4.1
+    image: spark-yarn:3.5.0
     build:
       context: .
       dockerfile: Dockerfile
@@ -29,7 +29,7 @@ services:
       - ./hadoop-conf/hdfs-site.xml:/opt/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
       - ./hadoop-conf/mapred-site.xml:/opt/hadoop-3.3.6/etc/hadoop/mapred-site.xml
       - ./hadoop-conf/yarn-site.xml:/opt/hadoop-3.3.6/etc/hadoop/yarn-site.xml
-      - ./spark-conf/spark-defaults.conf:/opt/spark-3.4.1-bin-without-hadoop/conf/spark-defaults.conf
+      - ./spark-conf/spark-defaults.conf:/opt/spark-3.5.0-bin-without-hadoop/conf/spark-defaults.conf
       - ./livy-conf/livy.conf:/opt/apache-livy/conf/livy.conf
     command:
       - "-c"
