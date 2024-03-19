@@ -6,7 +6,7 @@ networks:
 services: 
 
   spark:
-    image: spark-yarn:3.5.0
+    image: spark-yarn:3.5.1
     build:
       context: .
       dockerfile: Dockerfile
