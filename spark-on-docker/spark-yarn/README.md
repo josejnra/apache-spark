@@ -1,11 +1,11 @@
 ## Apps availables on this docker-compose file
 - Hadoop 3.3.6
-- Apache Spark 3.5.0
+- Apache Spark 3.5.1
 - Apache Livy 0.7.1
 - Jupyter Lab
 - Elasticsearch 7.17.13
 - Mysql 8.3.0
-- Postgres 16.2
+- Postgres 16.3
 - Kafka 7.6.0
 - Graphite 1.1.10
 - Minio latest
