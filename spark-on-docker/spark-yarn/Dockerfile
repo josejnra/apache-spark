@@ -15,7 +15,7 @@ RUN apt-get update && \
                        vim \
                        python3-pip
 
-ENV HADOOP_VERSION 3.3.6
+ENV HADOOP_VERSION 3.4.0
 
 WORKDIR /opt
 
@@ -88,7 +88,7 @@ RUN python3 -m pip install jupyterlab \
                            ipython \
                            pyspark==${SPARK_VERSION} \
                            delta-spark==3.1.0 \
-                           pandas==2.2.1 \
+                           pandas==2.2.2 \
                            spylon-kernel
 
 RUN python3 -m spylon_kernel install

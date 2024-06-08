@@ -25,10 +25,10 @@ services:
       - 8888:8888 # Jupyter Notebook
     volumes:
       - ./apps:/opt/apps # put your apps here and run spark-submit.sh (edit it)
-      - ./hadoop-conf/core-site.xml:/opt/hadoop-3.3.6/etc/hadoop/core-site.xml
-      - ./hadoop-conf/hdfs-site.xml:/opt/hadoop-3.3.6/etc/hadoop/hdfs-site.xml
-      - ./hadoop-conf/mapred-site.xml:/opt/hadoop-3.3.6/etc/hadoop/mapred-site.xml
-      - ./hadoop-conf/yarn-site.xml:/opt/hadoop-3.3.6/etc/hadoop/yarn-site.xml
+      - ./hadoop-conf/core-site.xml:/opt/hadoop-3.4.0/etc/hadoop/core-site.xml
+      - ./hadoop-conf/hdfs-site.xml:/opt/hadoop-3.4.0/etc/hadoop/hdfs-site.xml
+      - ./hadoop-conf/mapred-site.xml:/opt/hadoop-3.4.0/etc/hadoop/mapred-site.xml
+      - ./hadoop-conf/yarn-site.xml:/opt/hadoop-3.4.0/etc/hadoop/yarn-site.xml
       - ./spark-conf/spark-defaults.conf:/opt/spark-3.5.1-bin-without-hadoop/conf/spark-defaults.conf
       - ./livy-conf/livy.conf:/opt/apache-livy/conf/livy.conf
     command:
@@ -68,7 +68,7 @@ services:
         tail -f /opt/hadoop-$${HADOOP_VERSION}/logs/*log
 
   elasticsearch:
-    image: elasticsearch:7.17.18
+    image: elasticsearch:7.17.21
     container_name: elasticsearch
     networks:
       - spark
@@ -82,7 +82,7 @@ services:
       - 9200:9200
 
   kibana:
-    image: kibana:7.17.18
+    image: kibana:7.17.21
     container_name: kibana
     networks:
       - spark
@@ -91,7 +91,7 @@ services:
       - 5601:5601
 
   mysql:
-    image: mysql:8.3.0
+    image: mysql:8.4.0
     container_name: mysql
     networks:
       - spark
@@ -116,7 +116,7 @@ services:
       - ./postgres/scripts:/docker-entrypoint-initdb.d
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.6.0
+    image: confluentinc/cp-zookeeper:7.6.1
     hostname: zookeeper
     container_name: zookeeper
     networks:
@@ -126,7 +126,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka-broker:
-    image: confluentinc/cp-kafka:7.6.0
+    image: confluentinc/cp-kafka:7.6.1
     hostname: kafka-broker
     container_name: kafka-broker
     networks:

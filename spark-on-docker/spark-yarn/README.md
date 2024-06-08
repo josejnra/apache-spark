@@ -1,13 +1,13 @@
 ## Apps availables on this docker-compose file
-- Hadoop 3.3.6
-- Apache Spark 3.5.1
-- Apache Livy 0.7.1
+- Hadoop
+- Apache Spark
+- Apache Livy
 - Jupyter Lab
-- Elasticsearch 7.17.13
-- Mysql 8.3.0
-- Postgres 16.3
-- Kafka 7.6.0
-- Graphite 1.1.10
+- Elasticsearch
+- Mysql
+- Postgres
+- Kafka
+- Graphite
 - Minio latest
 
 You may simply change the environment variables `HADOOP_VERSION`, `SPARK_VERSION` and `LIVY_VERSION` on the [Dockerfile](Dockerfile) in order to create another docker image with different versions for the services. Besides that, you may have to update the [docker-compose.yaml](docker-compose.yaml) file to be according the new image.
