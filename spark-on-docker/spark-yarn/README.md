@@ -35,6 +35,9 @@ In order to run your apps, put all your app files within [apps](apps). Then just
 ```shell
 # spark project
 sbt new holdenk/sparkProjectTemplate.g8
+
+# build jar
+sbt package
 ```
 
 ### A few thing to know about
