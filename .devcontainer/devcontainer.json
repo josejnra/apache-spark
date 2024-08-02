@@ -9,7 +9,7 @@
 		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
 	],
 
-	"runArgs": ["--name=apache-spark-vscode"],
+	"runArgs": ["--name=vscode-apache-spark"],
 
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
@@ -44,6 +44,10 @@
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "gcc -v",
+	"postCreateCommand": "sh ./.devcontainer/setup.sh",
 
 	// Configure tool-specific properties.
 	// "customizations": {},

@@ -1,5 +1,3 @@
-version: '3.8'
-
 networks: 
   spark:
 
@@ -18,7 +16,7 @@ services:
       - 8080:18080 # Spark History Server
       - 4040:4040 # Spark UI
       - 8088:8088 # Resource Manager UI
-      - 8042:8042 # Node
+      - 8042:8042 # Nodemanager UI
       - 9864:9864 # Datanode port
       - 9870:9870 # HDFS UI
       - 8998:8998 # Livy UI
@@ -165,9 +163,35 @@ services:
     container_name: minio
     networks:
       - spark
+    environment:
+      MINIO_ROOT_USER: user
+      MINIO_ROOT_PASSWORD: password
     ports:
       - 9000:9000
       - 9001:9001
     command: server /data --console-address ":9001"
   # default access and secret key
   # minioadmin:minioadmin
+
+  minio-mc:
+    image: minio/mc
+    container_name: mc
+    restart: on-failure
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+    networks:
+      - spark
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      /usr/bin/mc config host add myminio http://minio:9000 user password;
+      /usr/bin/mc admin user svcacct add           \
+      --access-key "myuserserviceaccount"          \
+      --secret-key "myuserserviceaccountpassword"  \
+      myminio user;
+      /usr/bin/mc mb --with-versioning myminio/my-bucket;
+      exit 0;
+      "

@@ -86,7 +86,7 @@ EXPOSE 8998
 
 RUN python3 -m pip install jupyterlab \
                            ipython \
-                           pyspark==${SPARK_VERSION} \
+                           pyspark[sql]==${SPARK_VERSION} \
                            delta-spark==3.1.0 \
                            pandas==2.2.2 \
                            spylon-kernel
