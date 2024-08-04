@@ -55,8 +55,12 @@ PyArrow pode ser usado no Apache Spark para melhorar a eficiência de certas ope
 - Processamento em Memória:
     - Para operações que envolvem processamento em memória e onde o PyArrow pode ser mais eficiente do que o mecanismo padrão do Spark.
 
-
 ```python
 # enable PyArrow
 spark.conf.set("spark.sql.execution.arrow.pyspark.enabled", "true")
 ```
+
+## Some libs
+
+- com.amazonaws:aws-java-sdk-s3:  SDK (Software Development Kit) da AWS para Java, especificamente para interagir com o Amazon S3. Ela fornece as classes e métodos necessários para realizar operações no S3, como upload, download, listagem de objetos, entre outras.
+- org.apache.hadoop:hadoop-aws: módulo do Hadoop que permite que o Hadoop (e, por extensão, o Spark, que se baseia no Hadoop para operações de I/O) interaja com o Amazon S3 como se fosse um sistema de arquivos Hadoop nativo. Ela fornece a integração necessária para que Spark possa ler e escrever dados diretamente no S3.
