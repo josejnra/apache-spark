@@ -114,7 +114,7 @@ services:
       - ./postgres/scripts:/docker-entrypoint-initdb.d
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.6.1
+    image: confluentinc/cp-zookeeper:7.7.0
     hostname: zookeeper
     container_name: zookeeper
     networks:
@@ -124,7 +124,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka-broker:
-    image: confluentinc/cp-kafka:7.6.1
+    image: confluentinc/cp-kafka:7.7.0
     hostname: kafka-broker
     container_name: kafka-broker
     networks:
