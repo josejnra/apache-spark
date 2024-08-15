@@ -11,6 +11,10 @@
 
 	"runArgs": ["--name=vscode-apache-spark"],
 
+	"remoteEnv": {
+		"PYTHONPYCACHEPREFIX": "/home/vscode/.cache/cpython/"
+	},
+
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
 		"ghcr.io/devcontainers/features/python:1": {},
@@ -49,12 +53,9 @@
 					}
 				},
 				// "terminal.integrated.defaultProfile.linux": "poetry-shell",  # spawns a terminal on top of sh 
-				"python.defaultInterpreterPath": "/workspaces/apahe-spark/.venv/bin/python",
-				"mypy.dmypyExecutable": "/workspaces/apahe-spark/.venv/bin/dmypy",
-				"mypy-type-checker.path": ["/workspaces/apahe-spark/.venv/bin/mypy"],
-				"python.testing.pytestPath": "/workspaces/apahe-spark/.venv/bin/pytest",
-				"flake8.interpreter": ["/workspaces/apahe-spark/.venv/bin/flake8"],
-				"flake8.path": ["/workspaces/apahe-spark/.venv/bin/flake8"]
+				"files.watcherExclude": {
+					"**/target": true
+				}
 			}
 		}
 	},
