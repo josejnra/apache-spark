@@ -15,7 +15,7 @@ RUN apt-get update && \
                        vim \
                        python3-pip
 
-ENV HADOOP_VERSION 3.4.0
+ENV HADOOP_VERSION 3.4.1
 
 WORKDIR /opt
 
@@ -52,7 +52,7 @@ EXPOSE 9871 9870 9869 9868 9867 9866 9865 9864 9820 9000 8088
 # SETUP SPARK
 #############################
 
-ENV SPARK_VERSION 3.5.1
+ENV SPARK_VERSION 3.5.4
 
 RUN wget -P /opt https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-without-hadoop.tgz && \
     tar zxf /opt/spark-${SPARK_VERSION}-bin-without-hadoop.tgz -C /opt && \
@@ -71,11 +71,11 @@ EXPOSE 7077 4040
 # SETUP LIVY
 #############################
 
-ENV LIVY_VERSION 0.7.1
+ENV LIVY_VERSION 0.8.0
 
-RUN wget -P /opt https://dlcdn.apache.org/incubator/livy/${LIVY_VERSION}-incubating/apache-livy-${LIVY_VERSION}-incubating-bin.zip && \
-    unzip /opt/apache-livy-${LIVY_VERSION}-incubating-bin.zip -d /opt && \
-    mv /opt/apache-livy-${LIVY_VERSION}-incubating-bin /opt/apache-livy && \
+RUN wget -P /opt https://dlcdn.apache.org/incubator/livy/${LIVY_VERSION}-incubating/apache-livy-${LIVY_VERSION}-incubating_2.12-bin.zip && \
+    unzip /opt/apache-livy-${LIVY_VERSION}-incubating_2.12-bin.zip -d /opt && \
+    mv /opt/apache-livy-${LIVY_VERSION}-incubating_2.12-bin /opt/apache-livy && \
     rm /opt/apache-livy-*
 
 EXPOSE 8998
@@ -87,7 +87,7 @@ EXPOSE 8998
 RUN python3 -m pip install jupyterlab \
                            ipython \
                            pyspark[sql]==${SPARK_VERSION} \
-                           delta-spark==3.1.0 \
+                           delta-spark==3.3.0 \
                            spylon-kernel
 
 RUN python3 -m spylon_kernel install

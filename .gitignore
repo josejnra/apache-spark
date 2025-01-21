@@ -13,3 +13,8 @@ spark-on-docker/spark-yarn/apps/spark-warehouse/
 .vscode
 
 *.jar
+*.log
+*.dat
+*metastore_db*
+.DS_Store
+.vscode
