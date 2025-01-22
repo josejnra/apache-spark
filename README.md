@@ -23,6 +23,35 @@ It combines SQLContext, HiveContext, and StreamingContext. All of the APIs acces
 ### Spark Session vs Spark Context
 From Spark 2.0, SparkSession provides a common entry point for a Spark application. It allows you to interface with Spark’s numerous features with a less amount of constructs. Instead of SparkContext, HiveContext, and SQLContext, everything is now within a SparkSession. One aspect of the explanation why SparkSession is preferable over SparkContext in SparkSession Vs SparkContext battle is that __SparkSession unifies all of Spark’s numerous contexts, removing the developer’s need to worry about generating separate contexts__. Apart from this benefit, the Apache Spark developers have attempted to address the issue of numerous users sharing the same SparkContext.
 
+### Spark Connector
+In Apache Spark 3.4, Spark Connect introduced a decoupled client-server architecture that allows remote connectivity to Spark clusters using the DataFrame API and unresolved logical plans as the protocol. The separation between client and server allows Spark and its open ecosystem to be leveraged from everywhere.
+
+Spark Connect is a protocol that specifies how a client application can communicate with a remote Spark Server. Clients that implement the Spark Connect protocol can connect and make requests to remote Spark Servers, very similar to how client applications can connect to databases using a JDBC driver - a query spark.table("some_table").limit(5) should simply return the result.
+
+The Spark Connect client translates DataFrame operations into unresolved logical query plans which are encoded using protocol buffers. These are sent to the server using the gRPC framework. gRPC is performant and language agnostic which makes Spark Connect portable.
+
+<p align="center">
+    <img src="images/spark-connect-communication.png" alt="Spark Connect Communication" />
+</p>
+
+#### Spark Connect workloads are easier to maintain
+
+When you do not use Spark Connect, the client and Spark Driver must run identical software versions. They need the same Java, Scala, and other dependency versions. Suppose you develop a Spark project on your local machine, package it as a JAR file, and deploy it in the cloud to run on a production dataset. You need to build the JAR file on your local machine with the same dependencies used in the cloud. If you compile the JAR file with Scala 2.13, you must also provision the cluster with a Spark JAR compiled with Scala 2.13.
+
+In contrast, Spark Connect decouples the client and the Spark Driver, so you can update the Spark Driver including server-side dependencies without updating the client. This makes Spark projects much easier to maintain. In particular, for pure Python workloads, decoupling Python from the Java dependency on the client improves the overall user experience with Apache Spark.
+
+Spark Connect is a better architecture for running Spark in production settings. It’s more flexible, easier to maintain, and provides a better developer experience.
+
+#### Operational benefits of Spark Connect
+With this new architecture, Spark Connect mitigates several multi-tenant operational issues:
+
+**Stability**: Applications that use too much memory will now only impact their own environment as they can run in their own processes. Users can define their own dependencies on the client and don’t need to worry about potential conflicts with the Spark driver.
+
+**Upgradability**: The Spark driver can now seamlessly be upgraded independently of applications, for example to benefit from performance improvements and security fixes. This means applications can be forward-compatible, as long as the server-side RPC definitions are designed to be backwards compatible.
+
+**Debuggability and observability**: Spark Connect enables interactive debugging during development directly from your favorite IDE. Similarly, applications can be monitored using the application’s framework native metrics and logging libraries.
+
+
 ### Executor
 A process launched for an application on a worker node, that runs tasks and keeps data in memory or disk storage across them. Each application has its own executors. So, executors are JVMs that run on Worker nodes. These are the JVMs that actually run **Tasks** on data **Partitions**.
 
@@ -50,9 +79,12 @@ A Partition is a logical chunk of your RDD/Dataset/DataFrame. Data is split into
 - More difficult to use with less supported languages. Uses Java or Python for MapReduce apps.
 
 ### Spark
-- Faster in-memory performance with reduced disk reading and writing operations. 
+- Faster in-memory performance with reduced disk reading and writing operations.
 - Suitable for iterative and live-stream data analysis. Works with RDDs and DAGs to run operations.
 - More user friendly. Allows interactive shell mode. APIs can be written in Java, Scala, R, Python, Spark SQL. 
+
+### Deploy Mode
+This will determine where the Spark Driver will run. In Client mode, Spark runs driver in local machine, and in cluster mode, it runs driver on one of the nodes in the cluster.
 
 ## Run Spark Locally
 At [spark-on-docker](spark-on-docker) you may run spark locally in several different ways. Using docker-compose or even on kubernetes.
@@ -115,3 +147,5 @@ spark-submit --master yarn \ # Default is None
 - [Best Practices for Bucketing in Spark SQL](https://towardsdatascience.com/best-practices-for-bucketing-in-spark-sql-ea9f23f7dd53)
 - [Structured Streaming Kafka Integration](https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html)
 - [Spark Session vs Spark Context](https://www.ksolves.com/blog/big-data/spark/sparksession-vs-sparkcontext-what-are-the-differences)
+- [Spark Connect](https://spark.apache.org/spark-connect/)
+- [Spark Connect Overview](https://spark.apache.org/docs/3.5.3/spark-connect-overview.html)
